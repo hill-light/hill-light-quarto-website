@@ -1,0 +1,189 @@
+<script>
+/* Hill Light controller. Inlined deliberately: Quarto copies extension
+   resources to a project subdirectory, and a relative <script src> breaks
+   on pages below the project root. */
+(function () {
+  var KEY = "hill-light-theme";
+  var THEMES = ["dawn", "noon", "dusk", "night"];
+  var LABELS = {
+    dawn: "溪山晓雾",
+    noon: "溪山午荫",
+    dusk: "溪山暮烟",
+    night: "溪山夜月"
+  };
+  var SHORT = { dawn: "晓雾", noon: "午荫", dusk: "暮烟", night: "夜月" };
+  var root = document.documentElement;
+
+  /* Pandoc lowercases inline SVG attribute names when it reads raw HTML.
+     Restore the one attribute the browser will not repair on its own. */
+  Array.prototype.forEach.call(document.querySelectorAll("svg[viewbox]"), function (svg) {
+    if (!svg.getAttribute("viewBox")) {
+      svg.setAttribute("viewBox", svg.getAttribute("viewbox"));
+    }
+  });
+
+  function valid(value) { return THEMES.indexOf(value) !== -1; }
+  function saved() {
+    try { return localStorage.getItem(KEY); } catch (error) { return null; }
+  }
+  function preview() {
+    try { return new URLSearchParams(window.location.search).get("theme"); } catch (error) { return null; }
+  }
+  function byHour(hour) {
+    if (hour >= 6 && hour < 11) return "dawn";
+    if (hour >= 11 && hour < 17) return "noon";
+    if (hour >= 17 && hour < 20) return "dusk";
+    return "night";
+  }
+  function current() { return root.getAttribute("data-theme") || "dawn"; }
+
+  var status = null;
+  function announce(theme) {
+    if (status) status.textContent = "已切换到" + LABELS[theme];
+  }
+
+  function sync(theme, source) {
+    var buttons = document.querySelectorAll("[data-theme-choice]");
+    for (var i = 0; i < buttons.length; i += 1) {
+      buttons[i].setAttribute("aria-pressed", String(buttons[i].getAttribute("data-theme-choice") === theme));
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      var bg = getComputedStyle(root).getPropertyValue("--bg").trim();
+      if (bg) meta.setAttribute("content", bg);
+    }
+    root.setAttribute("data-theme-source", source);
+    announce(theme);
+  }
+
+  function setTheme(theme, source, persist) {
+    if (!valid(theme)) return;
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme === "night" ? "dark" : "light";
+    if (persist) {
+      try { localStorage.setItem(KEY, theme); } catch (error) { /* private mode */ }
+      try {
+        var url = new URL(window.location.href);
+        if (url.searchParams.has("theme")) {
+          url.searchParams.delete("theme");
+          window.history.replaceState({}, "", url.toString());
+        }
+      } catch (error) { /* old browser */ }
+    }
+    sync(theme, source);
+  }
+
+  function autoTheme() {
+    if (valid(saved()) || valid(preview())) return;
+    setTheme(byHour(new Date().getHours()), "auto", false);
+  }
+
+  function buildSwitcher() {
+    var group = document.createElement("div");
+    group.className = "hl-switcher";
+    group.setAttribute("role", "group");
+    group.setAttribute("aria-label", "阅读主题");
+    THEMES.forEach(function (theme) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "hl-switcher__button";
+      button.setAttribute("data-theme-choice", theme);
+      button.setAttribute("aria-pressed", "false");
+      button.setAttribute("aria-label", LABELS[theme]);
+      button.title = LABELS[theme];
+      var dot = document.createElement("span");
+      dot.className = "hl-switcher__dot";
+      dot.setAttribute("aria-hidden", "true");
+      var label = document.createElement("span");
+      label.className = "hl-switcher__label";
+      label.textContent = SHORT[theme];
+      button.appendChild(dot);
+      button.appendChild(label);
+      group.appendChild(button);
+    });
+    status = document.createElement("span");
+    status.className = "hl-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    group.appendChild(status);
+
+    function placeSwitcher() {
+      var wide = window.matchMedia("(min-width: 992px)").matches;
+      var navbar = document.querySelector("nav.navbar");
+      var mode = navbar ? "navbar" : (wide ? "sidebar" : "bar");
+      if (group.dataset.placement === mode) return;
+
+      var target = null;
+      if (navbar) {
+        var search = document.querySelector("#quarto-search");
+        var tools = document.querySelector(".quarto-navbar-tools");
+        if (search && search.parentNode) {
+          target = search.parentNode;
+          target.insertBefore(group, search);
+        } else if (tools) {
+          target = tools;
+          tools.insertBefore(group, tools.firstChild);
+        } else {
+          target = document.querySelector(".navbar-container");
+          if (target) target.insertBefore(group, target.querySelector(".navbar-toggler"));
+        }
+      } else if (wide) {
+        var sidebarSearch = document.querySelector("#quarto-sidebar .sidebar-search");
+        target = sidebarSearch && sidebarSearch.parentNode
+          ? sidebarSearch.parentNode
+          : document.querySelector("#quarto-sidebar");
+        if (target) {
+          target.insertBefore(group, sidebarSearch ? sidebarSearch.nextSibling : target.firstChild);
+        }
+      } else {
+        target = document.querySelector(".quarto-secondary-nav .container-fluid");
+        if (target) {
+          target.insertBefore(group, target.querySelector(".quarto-search-button"));
+        }
+      }
+
+      group.classList.toggle("hl-switcher--navbar", mode === "navbar");
+      group.classList.toggle("hl-switcher--sidebar", mode === "sidebar");
+      group.classList.toggle("hl-switcher--bar", mode === "bar");
+      group.classList.toggle("hl-switcher--fixed", !target);
+      if (target) {
+        group.dataset.placement = mode;
+      } else {
+        group.dataset.placement = "fixed";
+        document.body.appendChild(group);
+      }
+    }
+
+    placeSwitcher();
+    var resizeTimer = 0;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(placeSwitcher, 150);
+    });
+    sync(current(), root.getAttribute("data-theme-source") || "auto");
+  }
+
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-theme-choice]");
+    if (!button) return;
+    setTheme(button.getAttribute("data-theme-choice"), "manual", true);
+  });
+
+  window.addEventListener("storage", function (event) {
+    if (event.key !== KEY || !valid(event.newValue)) return;
+    setTheme(event.newValue, "saved", false);
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) autoTheme();
+  });
+
+  window.setInterval(autoTheme, 30 * 60 * 1000);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", buildSwitcher);
+  } else {
+    buildSwitcher();
+  }
+})();
+</script>

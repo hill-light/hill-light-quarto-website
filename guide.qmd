@@ -1,0 +1,126 @@
+---
+title: "指南"
+subtitle: "把山色接进一个 Quarto 网站"
+toc: true
+---
+
+## 它是什么
+
+山色是一套为中文长文准备的阅读主题，以 Quarto 扩展格式发布。它不改变 Quarto 的页面结构，只接管颜色、字体、间距和主题切换：导航、目录、搜索、提示块、表格、代码块都留在原位，但都接同一组 CSS 变量。
+
+这个仓库同时是模板和演示站。你可以直接复制 `_extensions/hill-light/`，也可以先读[长文](demo.qmd)和[设计](design.qmd)，看它在真实排版里的样子。
+
+## 安装
+
+要求 Quarto **1.4 或更高**。开发和验证使用 1.10.19。
+
+### 1. 复制扩展
+
+把仓库里的扩展目录复制到你的网站根目录：
+
+```bash
+cp -r _extensions/hill-light /path/to/your-site/_extensions/
+```
+
+目录里只有四个文件：`_extension.yml`、`hill-light.scss`、`hill-light-head.html`、`hill-light-body.html`。没有 npm 依赖，也没有构建步骤。
+
+### 2. 启用格式
+
+在 `_quarto.yml` 里写扩展生成的格式名：
+
+```yaml
+project:
+  type: website
+
+format:
+  hill-light-html:
+    toc: true
+    toc-title: "目录"
+```
+
+格式名固定为 `hill-light-html`。只写 `theme: [hill-light]` 不会加载扩展；Quarto 把扩展主题注册成独立 format，必须用这个名字。
+
+### 3. 预览
+
+```bash
+quarto preview
+```
+
+如果只改颜色，不需要重启预览；Quarto 会重新编译 SCSS。
+
+## 主题如何选择
+
+| Key | 名称 | 自动时段 | 纸面 | 墨 |
+| --- | --- | --- | --- | --- |
+| `dawn` | 溪山晓雾 | 06:00–10:59 | 暖白 | 深青灰 |
+| `noon` | 溪山午荫 | 11:00–16:59 | 亮米 | 近黑青 |
+| `dusk` | 溪山暮烟 | 17:00–19:59 | 暖赭 | 深褐 |
+| `night` | 溪山夜月 | 20:00–05:59 | 深灰 | 浅青灰 |
+
+优先级从高到低：
+
+1. `?theme=dawn|noon|dusk|night`：只预览当前页，不写入存储。
+2. `localStorage` 里的 `hill-light-theme`：读者点过切换器后保存的偏好。
+3. 本地时间：没有预览、没有保存时，按上表自动选择。
+
+切换器是原生 `<button>`，带 `aria-pressed` 和完整的中文 `aria-label`。点击后只改 `data-theme`，不刷新页面，也不重建正文。每 30 分钟检查一次时间；如果读者手动选过，就不再自动切。
+
+首屏脚本内联在 `<head>` 里，在 CSS 绘制前写好 `data-theme`，避免先亮后暗的闪烁。没有 JavaScript 时，CSS 默认落在晓雾，正文仍然可读；切换器由 `.hl-js` 控制，不会留下四个按不动的按钮。
+
+## 变量
+
+四组主题共享同一套语义变量。组件只引用变量，不写死颜色。
+
+| 变量 | 用途 |
+| --- | --- |
+| `--bg` | 页面纸面 |
+| `--bg-elevated` | 抬升面：搜索框、代码块、页脚 |
+| `--bg-subtle` | 次级面：行内代码、表头、选中态 |
+| `--text` | 正文 |
+| `--text-muted` | 次要文字、说明 |
+| `--text-faint` | 元信息、目录标题、图注 |
+| `--accent` | 链接、强调、激活态 |
+| `--accent-hover` | 链接悬停 |
+| `--accent-contrast` | 强调底上的文字 |
+| `--border` | 组件边框 |
+| `--divider` | 分隔线、标题下边框 |
+| `--selection-bg` | 选区 |
+| `--focus-ring` | 键盘焦点环 |
+| `--img-overlay` / `--img-overlay-opacity` | 图片遮罩 |
+| `--theme-transition` | 切换过渡，默认 300ms |
+
+尺度变量固定为：正文 `--text-base: 18px`（窄屏 17px）、行高 `1.75`、阅读栏 `--measure: 680px`、移动端边距 `20px`。字体为思源宋体 / Noto Serif SC 正文，思源黑体 / Noto Sans SC 界面；两者都有系统回退。
+
+完整的四时色值与对比度表在[设计](design.qmd)页。
+
+## 覆盖样式
+
+扩展的 SCSS 编译在 Bootstrap 之后。要改一两个值，不必改扩展文件；在项目里加一个 `custom.css`：
+
+```yaml
+format:
+  hill-light-html:
+    css: custom.css
+```
+
+```css
+:root[data-theme="dawn"] {
+  --accent: #2a5f5b;
+}
+```
+
+这样升级扩展时不会丢掉你的改动。若要改整套配色，再直接改 `hill-light.scss` 顶部的四组变量。
+
+## 无障碍
+
+- 正文与纸面的对比度最低 4.54:1，超过 WCAG AA 的 4.5:1；强调色、链接、焦点环都单独检查。
+- 夜间背景是 `#1b2223`，正文是 `#d7ddd9`，不是纯黑配纯白。
+- 焦点环 2px，偏移 2px，键盘可达；切换器有可见的 `aria-pressed` 状态。
+- 尊重 `prefers-reduced-motion: reduce`：关闭主题过渡与平滑滚动。
+- 没有 JavaScript 时仍以晓雾主题完整可读。
+
+## 已知边界
+
+- 这是模板项目，不在 Quarto 扩展 registry 里；复制目录是最稳的安装方式。
+- 扩展只覆盖 HTML 输出；PDF、Word 不在这套主题的范围内。
+- 网站默认不启用侧栏导航；长文页只保留右侧目录。书籍版请用 [hill-light-quarto-book](https://github.com/hill-light/hill-light-quarto-book)。

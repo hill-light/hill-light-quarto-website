@@ -1,0 +1,136 @@
+---
+title: "山色"
+toc: false
+body-classes: hl-home
+---
+
+```{=html}
+<header class="hl-hero">
+  <p class="hl-kicker">HILL LIGHT · 四时阅读主题</p>
+  <h1 class="hl-title">山色</h1>
+  <p class="hl-subtitle">同一座山，四时的光。为中文长文准备的一套 Quarto Website 主题。</p>
+  <p class="hl-lede">晓雾、午荫、暮烟、夜月共用一套语义变量。切换主题时，版式、字号与构图都不动，只有色温、对比、雾的厚薄和受光的面在变。</p>
+  <p class="hl-meta">Quarto Website 模板 · 无构建依赖 · 正文 18px / 行高 1.75</p>
+</header>
+```
+
+```{=html}
+<figure class="hl-hero-art">
+<svg viewBox="0 0 1200 720" role="img" aria-labelledby="home-art-title home-art-desc">
+<title id="home-art-title">溪山四时</title>
+<desc id="home-art-desc">同一幅山路、溪流与松树的矢量构图，天空、远山、雾、受光与溪面反光随四个时辰变化。</desc>
+<defs>
+<linearGradient id="home-sky-grad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" style="stop-color: var(--sky-top)"></stop>
+<stop offset="1" style="stop-color: var(--sky-bottom)"></stop>
+</linearGradient>
+<radialGradient id="home-glow-grad" cx="0.5" cy="0.5" r="0.5">
+<stop offset="0" stop-opacity="0.55" style="stop-color: var(--light)"></stop>
+<stop offset="1" stop-opacity="0" style="stop-color: var(--light)"></stop>
+</radialGradient>
+<linearGradient id="home-mist-grad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-opacity="0" style="stop-color: var(--mist)"></stop>
+<stop offset="0.45" stop-opacity="0.95" style="stop-color: var(--mist)"></stop>
+<stop offset="1" stop-opacity="0" style="stop-color: var(--mist)"></stop>
+</linearGradient>
+<linearGradient id="home-mist-fade" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0"></stop>
+<stop offset="0.18" stop-color="#ffffff" stop-opacity="1"></stop>
+<stop offset="0.82" stop-color="#ffffff" stop-opacity="1"></stop>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"></stop>
+</linearGradient>
+<mask id="home-mist-mask" maskUnits="userSpaceOnUse" x="0" y="350" width="1200" height="190">
+<rect x="0" y="350" width="1200" height="190" fill="url(#home-mist-fade)"></rect>
+</mask>
+</defs>
+<rect width="1200" height="720" style="fill: url(#home-sky-grad)"></rect>
+<circle cx="872" cy="204" r="168" style="fill: url(#home-glow-grad)"></circle>
+<circle cx="872" cy="204" r="50" style="fill: var(--light)"></circle>
+<path d="M0 352 L112 262 L212 322 L302 232 L394 316 L470 268 L562 336 L660 270 L760 340 L852 300 L952 352 L1042 300 L1132 350 L1200 330 L1200 470 L0 470 Z" style="fill: var(--mountain-far); opacity: 0.62"></path>
+<path d="M0 444 L92 352 L202 410 L312 300 L432 404 L522 336 L642 420 L752 330 L872 414 L982 352 L1092 430 L1200 402 L1200 552 L0 552 Z" style="fill: var(--mountain-mid); opacity: 0.9"></path>
+<path d="M312 300 L432 404 L386 404 L332 348 Z" style="fill: var(--ridge-highlight); opacity: var(--ridge-opacity)"></path>
+<path d="M752 330 L872 414 L820 414 L772 372 Z" style="fill: var(--ridge-highlight); opacity: var(--ridge-opacity)"></path>
+<path d="M112 262 L212 322 L168 322 L128 288 Z" style="fill: var(--ridge-highlight); opacity: calc(var(--ridge-opacity) * 0.7)"></path>
+<rect x="0" y="350" width="1200" height="190" mask="url(#home-mist-mask)" style="fill: url(#home-mist-grad); opacity: var(--haze-opacity)"></rect>
+<path d="M0 560 C120 498 240 494 360 528 C480 562 560 518 680 524 C800 530 884 578 1004 568 C1092 560 1152 526 1200 534 L1200 720 L0 720 Z" style="fill: var(--mountain-near); opacity: 0.94"></path>
+<path d="M586 720 C606 662 642 610 694 566 C736 530 780 520 828 526 L862 538 C812 562 780 606 760 660 C746 698 742 720 742 720 Z" style="fill: var(--water); opacity: 0.8"></path>
+<path d="M700 720 C714 676 740 638 776 606" style="fill: none; stroke: var(--water-line); stroke-width: 3; opacity: var(--water-light-opacity)"></path>
+<path d="M646 720 C664 680 690 650 722 624" style="fill: none; stroke: var(--water-line); stroke-width: 2; opacity: var(--water-light-opacity)"></path>
+<g style="fill: var(--tree)">
+<path d="M150 690 L150 552" style="fill: none; stroke: var(--tree); stroke-width: 5; opacity: 0.85"></path>
+<path transform="translate(150 470) scale(1.25)" d="M0 0 L-16 30 L-6 27 L-24 58 L-10 54 L-30 88 L30 88 L10 54 L24 58 L6 27 L16 30 Z"></path>
+<path transform="translate(206 560) scale(0.8)" d="M0 0 L-16 30 L-6 27 L-24 58 L-10 54 L-30 88 L30 88 L10 54 L24 58 L6 27 L16 30 Z"></path>
+<path transform="translate(1062 640) scale(1.4)" d="M0 0 L-16 30 L-6 27 L-24 58 L-10 54 L-30 88 L30 88 L10 54 L24 58 L6 27 L16 30 Z"></path>
+<path transform="translate(1118 606) scale(0.9)" d="M0 0 L-16 30 L-6 27 L-24 58 L-10 54 L-30 88 L30 88 L10 54 L24 58 L6 27 L16 30 Z"></path>
+<path transform="translate(432 600) scale(0.6)" d="M0 0 L-16 30 L-6 27 L-24 58 L-10 54 L-30 88 L30 88 L10 54 L24 58 L6 27 L16 30 Z"></path>
+</g>
+<g style="fill: none; stroke: var(--text); stroke-width: 2; opacity: 0.4; stroke-linecap: round">
+<path d="M322 244 q12 -9 24 0 q12 -9 24 0"></path>
+<path d="M392 216 q10 -7 20 0 q10 -7 20 0"></path>
+</g>
+</svg>
+<figcaption>同一构图 · 只换光</figcaption>
+</figure>
+```
+
+## 四时
+
+同一页在四个时辰的样子。点一行，长文会以那个时辰打开——`?theme=` 只预览当前页，不会改掉你保存的偏好。
+
+```{=html}
+<div class="hl-seasons">
+  <a class="hl-season" href="demo.html?theme=dawn">
+    <span class="hl-season__dot" aria-hidden="true"></span>
+    <span class="hl-season__name">溪山晓雾</span>
+    <span class="hl-season__time">06:00–10:59</span>
+    <span class="hl-season__desc">纸面偏暖白，墨色带一点青。雾最厚，远山只露一层轮廓。</span>
+  </a>
+  <a class="hl-season" href="demo.html?theme=noon">
+    <span class="hl-season__dot" aria-hidden="true"></span>
+    <span class="hl-season__name">溪山午荫</span>
+    <span class="hl-season__time">11:00–16:59</span>
+    <span class="hl-season__desc">最亮的一组。米白纸面、深青墨色，对比清楚，适合白天长时间阅读。</span>
+  </a>
+  <a class="hl-season" href="demo.html?theme=dusk">
+    <span class="hl-season__dot" aria-hidden="true"></span>
+    <span class="hl-season__name">溪山暮烟</span>
+    <span class="hl-season__time">17:00–19:59</span>
+    <span class="hl-season__desc">纸张转暖赭，山色压低。光从侧面来，屋脊与树梢留一条细边。</span>
+  </a>
+  <a class="hl-season" href="demo.html?theme=night">
+    <span class="hl-season__dot" aria-hidden="true"></span>
+    <span class="hl-season__name">溪山夜月</span>
+    <span class="hl-season__time">20:00–05:59</span>
+    <span class="hl-season__desc">深灰不是纯黑，正文不是纯白。月光只落在水面和一小片山脊上。</span>
+  </a>
+</div>
+```
+
+## 不是四套皮肤
+
+山色只有一套构图。天、山、雾、溪、松的位置不动；四时改的是色温、对比、雾的浓度、受光的面和阴影的软硬。这样读者换主题时，记住的是同一座山，而不是四张不相干的插画。
+
+主题值全部落在 CSS 变量上：纸面、抬升面、正文、次要文字、强调色、边框、选区、焦点环。组件不写死颜色，Quarto 的导航、目录、提示块、表格和代码块也接同一组变量。
+
+## 开始使用
+
+把扩展目录复制进你的 Quarto 网站，然后在 `_quarto.yml` 里启用 `hill-light-html`：
+
+```bash
+cp -r _extensions/hill-light /path/to/your-site/_extensions/
+```
+
+```yaml
+project:
+  type: website
+
+format:
+  hill-light-html:
+    toc: true
+```
+
+完整的安装、主题行为与变量说明在[指南](guide.qmd)；想看长文排版，直接读[长文](demo.qmd)。
+
+```{=html}
+<p class="hl-footnote">山色 / Hill Light · MIT · 以 Quarto 构建</p>
+```

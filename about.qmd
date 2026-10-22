@@ -1,0 +1,25 @@
+---
+title: "关于"
+subtitle: "山色 / Hill Light"
+toc: false
+---
+
+山色是一套为中文长文准备的四时阅读主题。它从一张纸开始：纸面不是纯白，墨色不是纯黑，光从早上到夜里缓慢移动。主题只改光，不改版式；同一座山留在原地。
+
+这个仓库是 Quarto Website 的模板与演示站。它和另外两个仓库共享同一套语义变量：
+
+- [hill-light-theme](https://github.com/hill-light/hill-light-theme)：设计规范、CSS 变量和静态演示站，是规范的源头。
+- [hill-light-quarto-book](https://github.com/hill-light/hill-light-quarto-book)：Quarto Book 扩展，带侧栏、章节导航与页导航。
+- [hill-light-quarto-website](https://github.com/hill-light/hill-light-quarto-website)：本仓库，Quarto Website 扩展与模板。
+
+## 谁做的
+
+由 [chengzhao-dev](https://github.com/chengzhao-dev) 维护。主题的变量、对比度数据和设计决策记录在核心仓库的 `DESIGN.md` 里；本仓库只负责把同一套值接进 Quarto 的导航、目录、搜索、提示块、表格和代码块。
+
+## 许可
+
+MIT。你可以复制、修改、再发布；保留版权声明即可。中文字体不随仓库分发，正文回退到系统自带的宋体或 Noto Serif SC。
+
+## 反馈
+
+问题、建议或想加一个新的集成，请在对应的仓库开 issue。主题本身不接受“加一个卡片网格”或“再加第五个时辰”的请求；四时是这套主题的边界。

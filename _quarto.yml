@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "山色"
+  description: "四时阅读主题 · Quarto Website 模板"
+  site-url: "https://hill-light.github.io/hill-light-quarto-website/"
+  repo-url: "https://github.com/hill-light/hill-light-quarto-website"
+  navbar:
+    pinned: true
+    left:
+      - text: "指南"
+        href: guide.qmd
+      - text: "长文"
+        href: demo.qmd
+      - text: "设计"
+        href: design.qmd
+      - text: "关于"
+        href: about.qmd
+    right:
+      - icon: github
+        href: "https://github.com/hill-light/hill-light-quarto-website"
+        aria-label: "GitHub"
+  page-footer:
+    left: "山色 / Hill Light"
+    center: "MIT"
+    right: "用 Quarto 构建"
+  search: true
+
+format:
+  hill-light-html:
+    toc: true
+    toc-depth: 2
+    toc-title: "目录"
+    code-copy: true
+    date-format: "YYYY 年 M 月 D 日"

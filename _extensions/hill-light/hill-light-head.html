@@ -1,0 +1,29 @@
+<script>
+/* Set the theme before first paint. Keep this block identical in the
+   book and website extensions so a reader's choice follows them. */
+(function () {
+  var KEY = "hill-light-theme";
+  var THEMES = ["dawn", "noon", "dusk", "night"];
+  function valid(value) { return THEMES.indexOf(value) !== -1; }
+  function saved() {
+    try { return localStorage.getItem(KEY); } catch (error) { return null; }
+  }
+  function preview() {
+    try { return new URLSearchParams(window.location.search).get("theme"); } catch (error) { return null; }
+  }
+  function byHour(hour) {
+    if (hour >= 6 && hour < 11) return "dawn";
+    if (hour >= 11 && hour < 17) return "noon";
+    if (hour >= 17 && hour < 20) return "dusk";
+    return "night";
+  }
+  var stored = saved();
+  var param = preview();
+  var theme = valid(param) ? param : valid(stored) ? stored : byHour(new Date().getHours());
+  var root = document.documentElement;
+  root.setAttribute("data-theme", theme);
+  root.setAttribute("data-theme-source", valid(param) ? "url" : valid(stored) ? "saved" : "auto");
+  root.style.colorScheme = theme === "night" ? "dark" : "light";
+  root.classList.add("hl-js");
+})();
+</script>
