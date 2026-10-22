@@ -75,29 +75,29 @@ body-classes: hl-home
 
 ## 四时
 
-同一页在四个时辰的样子。点一行，长文会以那个时辰打开——`?theme=` 只预览当前页，不会改掉你保存的偏好。
+同一页在四个时辰的样子。点一行，长文会以那个时辰打开——`?theme=…&preview=1` 强制预览当前页，不会改掉你保存的偏好。
 
 ```{=html}
 <div class="hl-seasons">
-  <a class="hl-season" href="demo.html?theme=dawn">
+  <a class="hl-season" href="demo.html?theme=dawn&amp;preview=1">
     <span class="hl-season__dot" aria-hidden="true"></span>
     <span class="hl-season__name">溪山晓雾</span>
     <span class="hl-season__time">06:00–10:59</span>
     <span class="hl-season__desc">纸面偏暖白，墨色带一点青。雾最厚，远山只露一层轮廓。</span>
   </a>
-  <a class="hl-season" href="demo.html?theme=noon">
+  <a class="hl-season" href="demo.html?theme=noon&amp;preview=1">
     <span class="hl-season__dot" aria-hidden="true"></span>
     <span class="hl-season__name">溪山午荫</span>
     <span class="hl-season__time">11:00–16:59</span>
     <span class="hl-season__desc">最亮的一组。米白纸面、深青墨色，对比清楚，适合白天长时间阅读。</span>
   </a>
-  <a class="hl-season" href="demo.html?theme=dusk">
+  <a class="hl-season" href="demo.html?theme=dusk&amp;preview=1">
     <span class="hl-season__dot" aria-hidden="true"></span>
     <span class="hl-season__name">溪山暮烟</span>
     <span class="hl-season__time">17:00–19:59</span>
     <span class="hl-season__desc">纸张转暖赭，山色压低。光从侧面来，屋脊与树梢留一条细边。</span>
   </a>
-  <a class="hl-season" href="demo.html?theme=night">
+  <a class="hl-season" href="demo.html?theme=night&amp;preview=1">
     <span class="hl-season__dot" aria-hidden="true"></span>
     <span class="hl-season__name">溪山夜月</span>
     <span class="hl-season__time">20:00–05:59</span>

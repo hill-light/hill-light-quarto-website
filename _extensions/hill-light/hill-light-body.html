@@ -64,10 +64,16 @@
       try { localStorage.setItem(KEY, theme); } catch (error) { /* private mode */ }
       try {
         var url = new URL(window.location.href);
+        var changed = false;
         if (url.searchParams.has("theme")) {
           url.searchParams.delete("theme");
-          window.history.replaceState({}, "", url.toString());
+          changed = true;
         }
+        if (url.searchParams.has("preview")) {
+          url.searchParams.delete("preview");
+          changed = true;
+        }
+        if (changed) window.history.replaceState({}, "", url.toString());
       } catch (error) { /* old browser */ }
     }
     sync(theme, source);

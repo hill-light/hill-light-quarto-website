@@ -8,8 +8,8 @@
   function saved() {
     try { return localStorage.getItem(KEY); } catch (error) { return null; }
   }
-  function preview() {
-    try { return new URLSearchParams(window.location.search).get("theme"); } catch (error) { return null; }
+  function param(name) {
+    try { return new URLSearchParams(window.location.search).get(name); } catch (error) { return null; }
   }
   function byHour(hour) {
     if (hour >= 6 && hour < 11) return "dawn";
@@ -18,11 +18,12 @@
     return "night";
   }
   var stored = saved();
-  var param = preview();
-  var theme = valid(param) ? param : valid(stored) ? stored : byHour(new Date().getHours());
+  var requested = param("theme");
+  var forced = param("preview") === "1";
+  var theme = valid(stored) && !forced ? stored : valid(requested) ? requested : valid(stored) ? stored : byHour(new Date().getHours());
   var root = document.documentElement;
   root.setAttribute("data-theme", theme);
-  root.setAttribute("data-theme-source", valid(param) ? "url" : valid(stored) ? "saved" : "auto");
+  root.setAttribute("data-theme-source", valid(stored) && !forced ? "saved" : valid(requested) ? "preview" : valid(stored) ? "saved" : "auto");
   root.style.colorScheme = theme === "night" ? "dark" : "light";
   root.classList.add("hl-js");
 })();

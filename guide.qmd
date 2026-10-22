@@ -59,9 +59,10 @@ quarto preview
 
 优先级从高到低：
 
-1. `?theme=dawn|noon|dusk|night`：只预览当前页，不写入存储。
+1. `?theme=dawn|noon|dusk|night&preview=1`：强制预览当前页，不写入存储。
 2. `localStorage` 里的 `hill-light-theme`：读者点过切换器后保存的偏好。
-3. 本地时间：没有预览、没有保存时，按上表自动选择。
+3. `?theme=…`（不带 `preview=1`）：没有保存偏好时用于单页预览。
+4. 本地时间：没有预览、没有保存时，按上表自动选择。
 
 切换器是原生 `<button>`，带 `aria-pressed` 和完整的中文 `aria-label`。点击后只改 `data-theme`，不刷新页面，也不重建正文。每 30 分钟检查一次时间；如果读者手动选过，就不再自动切。
 
