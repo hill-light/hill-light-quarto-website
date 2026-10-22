@@ -1,10 +1,10 @@
-# 山色 / Hill Light · Quarto Website
+# 山光 / Hill Light · Quarto Website
 
 一套为中文长文准备的四时阅读主题。同一座山，四时的光；版式、字号与构图不变，只有纸面、墨色、雾和受光面在变。
 
 [在线预览](https://hill-light.github.io/hill-light-quarto-website/) · [Quarto Book 模板](https://github.com/hill-light/hill-light-quarto-book) · [核心规范](https://github.com/hill-light/hill-light-theme)
 
-![山色 Quarto Website 首页，晓雾](docs/screenshots/home-dawn.png)
+![山光 Quarto Website 首页，晓雾](docs/screenshots/home-dawn.png)
 
 ## 四时
 

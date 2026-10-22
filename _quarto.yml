@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "山色"
+  title: "山光"
   description: "四时阅读主题 · Quarto Website 模板"
   site-url: "https://hill-light.github.io/hill-light-quarto-website/"
   repo-url: "https://github.com/hill-light/hill-light-quarto-website"
@@ -23,7 +23,7 @@ website:
         href: "https://github.com/hill-light/hill-light-quarto-website"
         aria-label: "GitHub"
   page-footer:
-    left: "山色 / Hill Light"
+    left: "山光 / Hill Light"
     center: "MIT"
     right: "用 Quarto 构建"
   search: true

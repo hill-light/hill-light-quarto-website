@@ -1,5 +1,5 @@
 ---
-title: "山色"
+title: "山光"
 toc: false
 body-classes: hl-home
 ---
@@ -7,7 +7,7 @@ body-classes: hl-home
 ```{=html}
 <header class="hl-hero">
   <p class="hl-kicker">HILL LIGHT · 四时阅读主题</p>
-  <h1 class="hl-title">山色</h1>
+  <h1 class="hl-title">山光</h1>
   <p class="hl-subtitle">同一座山，四时的光。为中文长文准备的一套 Quarto Website 主题。</p>
   <p class="hl-lede">晓雾、午荫、暮烟、夜月共用一套语义变量。切换主题时，版式、字号与构图都不动，只有色温、对比、雾的厚薄和受光的面在变。</p>
   <p class="hl-meta">Quarto Website 模板 · 无构建依赖 · 正文 18px / 行高 1.75</p>
@@ -95,7 +95,7 @@ body-classes: hl-home
     <span class="hl-season__dot" aria-hidden="true"></span>
     <span class="hl-season__name">溪山暮烟</span>
     <span class="hl-season__time">17:00–19:59</span>
-    <span class="hl-season__desc">纸张转暖赭，山色压低。光从侧面来，屋脊与树梢留一条细边。</span>
+    <span class="hl-season__desc">纸张转暖赭，山光压低。光从侧面来，屋脊与树梢留一条细边。</span>
   </a>
   <a class="hl-season" href="demo.html?theme=night&amp;preview=1">
     <span class="hl-season__dot" aria-hidden="true"></span>
@@ -108,7 +108,7 @@ body-classes: hl-home
 
 ## 不是四套皮肤
 
-山色只有一套构图。天、山、雾、溪、松的位置不动；四时改的是色温、对比、雾的浓度、受光的面和阴影的软硬。这样读者换主题时，记住的是同一座山，而不是四张不相干的插画。
+这套主题只有一套构图。天、山、雾、溪、松的位置不动；四时改的是色温、对比、雾的浓度、受光的面和阴影的软硬。这样读者换主题时，记住的是同一座山，而不是四张不相干的插画。
 
 主题值全部落在 CSS 变量上：纸面、抬升面、正文、次要文字、强调色、边框、选区、焦点环。组件不写死颜色，Quarto 的导航、目录、提示块、表格和代码块也接同一组变量。
 
