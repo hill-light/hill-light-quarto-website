@@ -130,7 +130,3 @@ format:
 ```
 
 完整的安装、主题行为与变量说明在[指南](guide.qmd)；想看长文排版，直接读[长文](demo.qmd)。
-
-```{=html}
-<p class="hl-footnote">山色 / Hill Light · MIT · 以 Quarto 构建</p>
-```

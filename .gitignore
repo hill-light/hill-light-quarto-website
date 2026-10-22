@@ -4,3 +4,6 @@ _site/
 Thumbs.db
 desktop.ini
 *.log
+
+/.quarto/
+**/*.quarto_ipynb
