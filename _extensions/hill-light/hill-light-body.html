@@ -12,6 +12,14 @@
     night: "溪山夜月"
   };
   var SHORT = { dawn: "晓雾", noon: "午荫", dusk: "暮烟", night: "夜月" };
+  /* 四时辰图标：晓雾/午荫/暮烟/夜月是气氛词，圆点传达不了差别。图形让控件在
+     扫视时就能分出昼夜与时刻，文字仍保留给读屏与长按提示。 */
+  var ICONS = {
+    dawn: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M1.6 8.6h8.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M3.3 8.6a2.7 2.7 0 0 1 5.4 0" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 2.3v1.2M3.5 4.1l.85.85M8.5 4.1l-.85.85" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+    noon: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 1.4v1.1M6 9.5v1.1M1.4 6h1.1M9.5 6h1.1M2.75 2.75l.8.8M8.45 8.45l.8.8M9.25 2.75l-.8.8M3.55 8.45l-.8.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+    dusk: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M1.6 8.6h8.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M3.3 8.6a2.7 2.7 0 0 1 5.4 0" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2.4 4.9h1.7M7.9 4.9h1.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+    night: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M8.4 2.5a3.9 3.9 0 1 0 1.2 5.6 4.8 4.8 0 0 1-1.2-5.6Z" fill="currentColor"/></svg>'
+  };
   var root = document.documentElement;
 
   /* Pandoc lowercases inline SVG attribute names when it reads raw HTML.
@@ -100,6 +108,7 @@
       var dot = document.createElement("span");
       dot.className = "hl-switcher__dot";
       dot.setAttribute("aria-hidden", "true");
+      dot.innerHTML = ICONS[theme];
       var label = document.createElement("span");
       label.className = "hl-switcher__label";
       label.textContent = SHORT[theme];
